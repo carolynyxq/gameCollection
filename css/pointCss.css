@@ -1,0 +1,31 @@
+.box {
+  max-width: 300px;
+  margin: 18px auto;
+  padding: 10px;
+  border: 2px solid #666;
+}
+.num {
+  width: 50px;
+  height: 30px;
+}
+.btn {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border:none;
+  font-weight: bold;
+  background:#F1C40F;
+}
+.num,.btn{
+  text-align: center;
+}
+#text_result {
+  background-color:#E74C3C;
+  border: none;
+  color: white;
+  font-weight: bold;
+  min-height: 20px;
+  padding: 10px;
+}
+.btn,#text_result{
+  color:#fff;
+}

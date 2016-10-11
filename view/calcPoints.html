@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=”utf-8”>
+  <title>算点数</title>
+  <link rel="stylesheet" href="css/pointCss.css"/>
+</head>
+<body>
+  <div class="box">
+    <form onsubmit="return(main());">
+      <h3>输入1-13内的有效正整数:</h3>
+      <input class="num" id="v1" onchange="checkValue(this);"/>
+      <input class="num" id="v2" onchange="checkValue(this);"/>
+      <input class="num" id="v3" onchange="checkValue(this);"/>
+      <input class="num" id="v4" onchange="checkValue(this);"/>
+      <h3>输入计算的目标结果:</h3>
+      <input class="num" id="v5" onchange="checkValue(this);" value="24"/>
+      <br>
+      <input class="btn" type="submit" value="计算">
+      <input class="btn" type="reset" value="重置输入">
+    </form>
+    <h3>计算结果:</h3>
+    <div id="text_result"></div>
+  </div>
+  <!--原生js-->
+  <script type="text/javascript">
+    var v1, v2, v3, v4, v5, text_result;
+    function $(str) {
+      return (document.getElementById(str));
+    }
+    //穷举计算所有可能的表达式
+    function calc(val1, val2, val3, val4) {
+      arr = new Array(val1, val2, val3, val4);
+      arr1 = new Array('1234', '1243', '1324', '1342', '1423', '1432','2134', '2143', '2341', '2314', '2413', '2431', '3124', '3142', '3241', '3214', '3412', '3421', '4123', '4132', '4213', '4231', '4312', '4321');
+      arr2 = new Array('+', '-', '*', '/');
+      a1 = parseInt(v5.value);
+      for (var i = 0; i < 24; i++) {
+        arr3 = arr1[i].split('');
+        for (var j = 0; j < 4; j++) {
+          arr3[j] = parseInt(arr3[j]);
+        }
+        for (var ii = 0; ii < 4; ii++) {
+          for (var jj = 0; jj < 4; jj++) {
+            for (var kk = 0; kk < 4; kk++) {
+              exp = arr[arr3[0] - 1] + arr2[ii] + arr[arr3[1] - 1] + arr2[jj] + arr[arr3[2] - 1] + arr2[kk] + arr[arr3[3] - 1];
+              if (eval(exp) == a1) {return (exp);}
+              exp = '(' + arr[arr3[0] - 1] + arr2[ii] + arr[arr3[1] - 1] + ')' + arr2[jj] + arr[arr3[2] - 1] + arr2[kk] + arr[arr3[3] - 1];
+              if (eval(exp) == a1) {return (exp);}
+              exp = arr[arr3[0] - 1] + arr2[ii] + '(' + arr[arr3[1] - 1] + arr2[jj] + arr[arr3[2] - 1] + ')' + arr2[kk] + arr[arr3[3] - 1];
+              if (eval(exp) == a1) {return (exp);}
+              exp = arr[arr3[0] - 1] + arr2[ii] + arr[arr3[1] - 1] + arr2[jj] + '(' + arr[arr3[2] - 1] + arr2[kk] + arr[arr3[3] - 1] + ')';
+              if (eval(exp) == a1) {return (exp);}
+              exp = '(' + arr[arr3[0] - 1] + arr2[ii] + arr[arr3[1] - 1] + arr2[jj] + arr[arr3[2] - 1] + ')' + arr2[kk] + arr[arr3[3] - 1];
+              if (eval(exp) == a1) {return (exp);}
+              exp = arr[arr3[0] - 1] + arr2[ii] + '(' + arr[arr3[1] - 1] + arr2[jj] + arr[arr3[2] - 1] + arr2[kk] + arr[arr3[3] - 1] + ')';
+              if (eval(exp) == a1) {return (exp);}
+            }
+          }
+        }
+      }
+      return false;
+    }
+    //输入数据有效性验证
+    function checkValue(boj1) {
+      if (isNaN(boj1.value)) {
+        alert("请输入1-13内的有效数值");
+        boj1.focus();
+        boj1.select();
+        event.returnValue = false;
+        event.cancelBubble = true;
+        return (false);
+      }
+    }
+    //初始化对象
+    function init() {
+      v1 = $("v1");
+      v2 = $("v2");
+      v3 = $("v3");
+      v4 = $("v4");
+      v5 = $("v5");
+      text_result = $("text_result");
+      v1.select();
+    }
+    //主函数
+    function main() {
+      init();//初始化获取对象
+      var s1 = calc(v1.value, v2.value, v3.value, v4.value);//调用核心计算，将获取的四个数值传递进去
+      if (s1) {
+        text_result.innerText += s1 + '==' + v5.value + '\n';
+      }
+      else {//false
+        text_result.innerText += v1.value + ',' + v2.value + ',' + v3.value + ',' + v4.value + '无法计算得到' + v5.value + '\n';
+      }
+      return false;
+    }
+  </script>
+</body>
+</html>
+

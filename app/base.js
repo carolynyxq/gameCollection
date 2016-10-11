@@ -1,0 +1,15 @@
+angular.module("myGames",['ng','ngRoute','myCtrl'])
+    .config(function($routeProvider){
+      $routeProvider
+          .when('/menu',{
+            templateUrl:'view/gameMenu.html',
+            controller:'menuCtrl'
+          })
+          .when('/point',{
+            templateUrl:'view/calcPoints.html',
+            controller:'pointCtrl'
+          })
+          .otherwise({
+            redirectTo:'/menu'
+          });
+    });
